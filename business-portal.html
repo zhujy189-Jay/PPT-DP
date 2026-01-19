@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>松江电信商机管理统一门户</title>
+    <link rel="stylesheet" href="business-portal.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部Banner区域 -->
+        <header class="banner">
+            <div class="banner-content">
+                <h1 class="banner-title">松江电信商机管理统一门户</h1>
+                <div class="banner-notification" id="banner-notification">
+                    <span class="notification-icon">⚠️</span>
+                    <span class="notification-text" id="notification-text">暂无最新商机更新</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 操作按钮区域 -->
+        <div class="action-bar">
+            <button class="btn-primary" id="add-business-btn">
+                <span class="btn-icon">+</span>
+                新增商机派单
+            </button>
+        </div>
+
+        <!-- 商机列表区域 -->
+        <main class="business-list">
+            <div class="list-header">
+                <h2>商机列表</h2>
+                <div class="filter-options">
+                    <select id="filter-category" class="filter-select">
+                        <option value="all">全部类别</option>
+                        <option value="basic">基础业务</option>
+                        <option value="innovation">战新产数</option>
+                        <option value="major">重大项目</option>
+                    </select>
+                    <select id="filter-priority" class="filter-select">
+                        <option value="all">全部优先级</option>
+                        <option value="must">必拜访</option>
+                        <option value="reference">参考级</option>
+                    </select>
+                </div>
+            </div>
+            <div class="business-cards" id="business-cards">
+                <!-- 商机卡片将通过JavaScript动态生成 -->
+            </div>
+        </main>
+    </div>
+
+    <!-- 新增/更新商机弹窗 -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3 id="modal-title">新增商机派单</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="business-form">
+                    <input type="hidden" id="business-id">
+                    
+                    <div class="form-group">
+                        <label for="business-category">商机类别 *</label>
+                        <select id="business-category" class="form-control" required>
+                            <option value="">请选择类别</option>
+                            <option value="basic">基础业务</option>
+                            <option value="innovation">战新产数</option>
+                            <option value="major">重大项目</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-title">商机标题 *</label>
+                        <input type="text" id="business-title" class="form-control" required placeholder="请输入商机标题">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-description">工作要求（管理员补充）</label>
+                        <textarea id="business-description" class="form-control" rows="4" placeholder="请输入工作要求...">1、商机CRM录入时商机名需带有"xxxx-"；
+2、派单企业商机转化，联系管理员获取1.2倍激励。
+3、商机执行关系每月KPI是否打折。</textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-wps-link">WPS在线文档链接</label>
+                        <input type="url" id="business-wps-link" class="form-control" placeholder="https://www.wps.cn/...">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-priority">优先级 *</label>
+                        <select id="business-priority" class="form-control" required>
+                            <option value="">请选择优先级</option>
+                            <option value="must">必拜访</option>
+                            <option value="reference">参考级</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-status">状态</label>
+                        <select id="business-status" class="form-control">
+                            <option value="in-progress">进行中</option>
+                            <option value="completed">已完成</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-assignee">负责人</label>
+                        <select id="business-assignee" class="form-control">
+                            <option value="">请选择负责人</option>
+                            <option value="张帆">张帆</option>
+                            <option value="沈璐祎">沈璐祎</option>
+                            <option value="潘辉">潘辉</option>
+                            <option value="王壹">王壹</option>
+                            <option value="俞胤颖">俞胤颖</option>
+                            <option value="高璇">高璇</option>
+                            <option value="杨潘宇枭">杨潘宇枭</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="business-deadline">截止时间</label>
+                        <input type="date" id="business-deadline" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label>创建日期</label>
+                        <input type="text" id="business-date" class="form-control" readonly>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="modal-cancel">取消</button>
+                <button type="button" class="btn-primary" id="modal-save">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确认完成弹窗 -->
+    <div class="modal-overlay" id="confirm-modal">
+        <div class="modal confirm-modal">
+            <div class="modal-header">
+                <h3>确认完成</h3>
+                <button class="modal-close" id="confirm-modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="confirm-message">确认此项商机派单已经完成？</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" id="confirm-cancel">否</button>
+                <button type="button" class="btn-primary" id="confirm-yes">是</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="business-portal.js"></script>
+</body>
+</html>
