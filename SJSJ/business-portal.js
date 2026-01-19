@@ -17,6 +17,31 @@ const notificationText = document.getElementById('notification-text');
 const filterCategory = document.getElementById('filter-category');
 const filterPriority = document.getElementById('filter-priority');
 
+// 统计栏DOM元素
+const statisticTotal = document.getElementById('statistic-total');
+const statisticInProgress = document.getElementById('statistic-in-progress');
+const statisticCompleted = document.getElementById('statistic-completed');
+const statisticBasic = document.getElementById('statistic-basic');
+const statisticInnovation = document.getElementById('statistic-innovation');
+const statisticMajor = document.getElementById('statistic-major');
+
+// 更新统计数据
+function updateStatistics() {
+    const total = businesses.length;
+    const inProgress = businesses.filter(b => b.status === 'in-progress').length;
+    const completed = businesses.filter(b => b.status === 'completed').length;
+    const basic = businesses.filter(b => b.category === 'basic').length;
+    const innovation = businesses.filter(b => b.category === 'innovation').length;
+    const major = businesses.filter(b => b.category === 'major').length;
+    
+    statisticTotal.textContent = total;
+    statisticInProgress.textContent = inProgress;
+    statisticCompleted.textContent = completed;
+    statisticBasic.textContent = basic;
+    statisticInnovation.textContent = innovation;
+    statisticMajor.textContent = major;
+}
+
 // 表单元素
 const businessForm = document.getElementById('business-form');
 const businessId = document.getElementById('business-id');
@@ -472,6 +497,9 @@ function updateNotificationAndEmail(message, business) {
 
 // 渲染商机列表
 function renderBusinesses() {
+    // 更新统计数据
+    updateStatistics();
+    
     const categoryFilter = filterCategory.value;
     const priorityFilter = filterPriority.value;
     

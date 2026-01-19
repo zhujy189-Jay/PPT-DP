@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>松江电信商机管理统一门户</title>
+    <title>松江电信商机派单管理统一门户</title>
     <link rel="stylesheet" href="business-portal.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
         <!-- 顶部Banner区域 -->
         <header class="banner">
             <div class="banner-content">
-                <h1 class="banner-title">松江电信商机管理统一门户</h1>
+                <h1 class="banner-title">松江电信商机派单管理统一门户</h1>
                 <div class="banner-notification" id="banner-notification">
                     <span class="notification-icon">⚠️</span>
                     <span class="notification-text" id="notification-text">暂无最新商机更新</span>
@@ -29,8 +29,36 @@
 
         <!-- 商机列表区域 -->
         <main class="business-list">
+            <!-- 统计栏区域 -->
+            <div class="statistics-section">
+                <div class="statistic-item total">
+                    <span class="statistic-label">派单总数</span>
+                    <span class="statistic-value" id="statistic-total">0</span>
+                </div>
+                <div class="statistic-item status">
+                    <span class="statistic-label">进行中</span>
+                    <span class="statistic-value" id="statistic-in-progress">0</span>
+                </div>
+                <div class="statistic-item status">
+                    <span class="statistic-label">已完成</span>
+                    <span class="statistic-value" id="statistic-completed">0</span>
+                </div>
+                <div class="statistic-item category">
+                    <span class="statistic-label">基础业务</span>
+                    <span class="statistic-value" id="statistic-basic">0</span>
+                </div>
+                <div class="statistic-item category">
+                    <span class="statistic-label">战新产数</span>
+                    <span class="statistic-value" id="statistic-innovation">0</span>
+                </div>
+                <div class="statistic-item category">
+                    <span class="statistic-label">重大项目</span>
+                    <span class="statistic-value" id="statistic-major">0</span>
+                </div>
+            </div>
+            
             <div class="list-header">
-                <h2>商机列表</h2>
+                <h2>派单列表</h2>
                 <div class="filter-options">
                     <select id="filter-category" class="filter-select">
                         <option value="all">全部类别</option>
@@ -45,6 +73,7 @@
                     </select>
                 </div>
             </div>
+            
             <div class="business-cards" id="business-cards">
                 <!-- 商机卡片将通过JavaScript动态生成 -->
             </div>
@@ -80,7 +109,7 @@
                     <div class="form-group">
                         <label for="business-description">工作要求（管理员补充）</label>
                         <textarea id="business-description" class="form-control" rows="4" placeholder="请输入工作要求...">1、商机CRM录入时商机名需带有"xxxx-"；
-2、派单企业商机转化，联系管理员获取1.2倍激励。
+2、派单企业商机转化，可联系管理员获取1.2倍激励。
 3、商机执行关系每月KPI是否打折。</textarea>
                     </div>
 
