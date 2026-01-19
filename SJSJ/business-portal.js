@@ -467,7 +467,37 @@ function updateBannerNotification(message) {
     bannerNotification.style.animation = 'slideIn 0.5s ease-out';
 }
 
-// 更新Banner通知并发送邮件
+// 发送Webhook通知
+function sendWebhookNotification(message) {
+    const webhookUrl = 'http://imtwo.zdxlz.com/im-external/v1/webhook/send?key=171241513266310572';
+    const webhookData = {
+        msgtype: 'text',
+        text: {
+            content: `商机派单更新，请关注执行。\n${message}`
+        }
+    };
+    
+    // 发送webhook请求
+    fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(webhookData)
+    })
+    .then(response => {
+        if (response.ok) {
+            console.log('📤 Webhook通知发送成功');
+        } else {
+            console.error('📤 Webhook通知发送失败:', response.status, response.statusText);
+        }
+    })
+    .catch(error => {
+        console.error('📤 Webhook通知发送错误:', error);
+    });
+}
+
+// 更新Banner通知并发送邮件和Webhook
 function updateNotificationAndEmail(message, business) {
     // 更新Banner通知
     updateBannerNotification(message);
@@ -488,6 +518,10 @@ function updateNotificationAndEmail(message, business) {
     `;
     
     sendEmail(emailSubject, emailContent);
+    
+    // 发送Webhook通知
+    const webhookMessage = `${message}\n商机标题：${business.title}\n类别：${categoryMap[business.category]}\n优先级：${priorityMap[business.priority]}\n负责人：${business.assignee}`;
+    sendWebhookNotification(webhookMessage);
     
     // 额外显示邮件提示
     setTimeout(() => {
