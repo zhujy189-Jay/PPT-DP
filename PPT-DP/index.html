@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPT备注生成器</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题栏 -->
+        <header class="header">
+            <h1 class="title">PPT备注生成器</h1>
+            <p class="subtitle">为您的PPT添加专业的字幕效果</p>
+        </header>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <!-- 左侧预览区域 -->
+            <section class="preview-panel">
+                <h2 class="section-title">预览区域</h2>
+                <div class="preview-container">
+                    <canvas id="preview-canvas" class="preview-canvas"></canvas>
+                    <div id="preview-placeholder" class="preview-placeholder">
+                        <div class="placeholder-icon">🖼️</div>
+                        <p>请先上传图片，然后输入字幕内容</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 右侧控制面板 -->
+            <aside class="control-panel">
+                <!-- 图片选择区域 -->
+                <div class="panel-section">
+                    <h2 class="section-title">选择图片</h2>
+                    <div class="image-uploader">
+                        <input type="file" id="image-input" accept="image/*" style="display: none;">
+                        <label for="image-input" class="upload-btn">
+                            点击选择图片或拖拽到此处
+                        </label>
+                    </div>
+                    <p id="image-info" class="info-text"></p>
+                </div>
+
+                <!-- 字体样式区域 -->
+                <div class="panel-section">
+                    <h2 class="section-title">字体样式</h2>
+                    
+                    <div class="style-group">
+                        <div class="style-item">
+                            <label for="font-size">字体大小(px)</label>
+                            <input type="number" id="font-size" min="12" max="100" value="60">
+                        </div>
+                        <div class="style-item">
+                            <label for="line-height">行高(px)</label>
+                            <input type="number" id="line-height" min="12" max="200" value="99">
+                        </div>
+                    </div>
+
+                    <div class="style-group">
+                        <div class="style-item">
+                            <label for="font-color">字体颜色</label>
+                            <input type="color" id="font-color" value="#ffffff">
+                        </div>
+                        <div class="style-item">
+                            <label for="outline-color">轮廓颜色</label>
+                            <input type="color" id="outline-color" value="#000000">
+                        </div>
+                    </div>
+
+                    <div class="style-group">
+                        <div class="style-item">
+                            <label for="outline-width">轮廓宽度</label>
+                            <input type="number" id="outline-width" min="0" max="10" value="3">
+                        </div>
+                        <div class="style-item">
+                            <label for="bg-color">背景颜色</label>
+                            <input type="color" id="bg-color" value="#ffff00">
+                        </div>
+                    </div>
+
+                    <div class="style-group">
+                        <div class="style-item full-width">
+                            <label for="bg-opacity">背景透明度: <span id="opacity-value">0.7</span></label>
+                            <input type="range" id="bg-opacity" min="0" max="1" step="0.1" value="0.7">
+                        </div>
+                    </div>
+
+                    <div class="style-group">
+                        <div class="style-item full-width">
+                            <label for="bg-padding">背景内边距: <span id="padding-value">50</span>px</label>
+                            <input type="range" id="bg-padding" min="0" max="100" step="1" value="50">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 字幕内容区域 -->
+                <div class="panel-section">
+                    <h2 class="section-title">字幕内容</h2>
+                    <textarea 
+                        id="subtitle-content" 
+                        rows="6" 
+                        placeholder="请输入字幕内容，支持多行文本...
+例如：
+别划走
+我在给自己写的网站呢
+对，这牛头..."
+                    ></textarea>
+                </div>
+            </aside>
+        </main>
+
+        <!-- 底部操作按钮 -->
+        <footer class="footer">
+            <button id="generate-btn" class="action-btn generate-btn">生成字幕图片</button>
+            <button id="save-btn" class="action-btn save-btn" disabled>保存图片</button>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
